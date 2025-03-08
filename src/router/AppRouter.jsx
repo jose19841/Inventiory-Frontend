@@ -9,6 +9,8 @@ import ProviderRegister from "../features/providers/pages/ProviderRegister";
 import ProvidersPage from "../features/providers/pages/ProvidersPage";
 import ClientRegister from "../features/clients/pages/ClientRegister";
 import ClientsPage from "../features/clients/pages/ClientsPage";
+import ExpenseRegister from "../features/expenses/pages/ExpenseRegister";
+import ExpensesPage from "../features/expenses/pages/ExpensesPage";
 
 export const AppRoutes = () => {
   return (
@@ -26,6 +28,8 @@ export const AppRoutes = () => {
         <Route path="/providerList" element={<ProtectedRoute element={<ProvidersPage/>} />} />
         <Route path="/clientRegister" element={<ProtectedRoute element={<ClientRegister/>} />} />
         <Route path="/clientsList" element={<ProtectedRoute element={<ClientsPage/>} />} />
+        <Route path="/expenseRegister" element={<ProtectedRoute element={<ExpenseRegister/>} />} />
+        <Route path="/expenseList" element={<ProtectedRoute element={<ExpensesPage/>} />} />
 
        
       {/* Redirigir cualquier ruta desconocida a "/login" */}

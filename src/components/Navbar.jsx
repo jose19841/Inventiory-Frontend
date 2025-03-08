@@ -36,6 +36,19 @@ const Navbar = () => {
         <div className="collapse navbar-collapse " id="navbarNav">
           <ul className="navbar-nav me-auto ">
 
+             {/* Expenses managenent */}
+             <NavbarDropdown text="Gastos" icon={Truck}>
+              <NavbarItem
+                url="/expenseRegister"
+                icon={Truck}
+                text="Registrar Gasto"
+              />
+              <NavbarItem
+                url="/expenseList"
+                icon={List}
+                text="Lista de Gastos"
+              />
+            </NavbarDropdown>
              {/* clients managenent */}
              <NavbarDropdown text="Clientes" icon={Truck}>
               <NavbarItem
