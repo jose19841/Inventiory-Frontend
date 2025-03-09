@@ -1,13 +1,16 @@
 import React, { useMemo, useState, useEffect } from "react";
 import useClients from "../api/useClients";
-import useUpdateClient from "../api/useUpdateClient"; // Hook para actualizar clientes
+import useUpdateClient from "../api/useUpdateClient";
 import DataTable from "../../../components/DataTable";
 import { LoadingScreen } from "../../../components/LoadingScreen";
 import EditClientModal from "./EditClientModal";
 import ToastMessage from "../../../components/ToastMessage";
+import useToggleClient from "../api/useToggleClient";
+import { Modal, Button } from "react-bootstrap";
 
 const ClientsPage = () => {
   const { clients, loading, error, fetchClients } = useClients();
+  const { toggleClient } = useToggleClient();
   const { updateClient } = useUpdateClient();
 
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
@@ -19,8 +22,11 @@ const ClientsPage = () => {
     variant: "success",
   });
 
+  const [showConfirmModal, setShowConfirmModal] = useState(false);
+  const [clientToToggle, setClientToToggle] = useState(null);
+
   useEffect(() => {
-    fetchClients(); // Cargar clientes al montar el componente
+    fetchClients();
   }, []);
 
   const handleEdit = (id) => {
@@ -41,39 +47,36 @@ const ClientsPage = () => {
     setIsEditModalOpen(true);
   };
 
-  const handleSave = async (updatedClient) => {
-    try {
-      await updateClient(updatedClient);
+  const handleShowConfirmModal = (client) => {
+    setClientToToggle(client);
+    setShowConfirmModal(true);
+  };
 
-      setToast({
-        show: true,
-        title: "Éxito",
-        message: "Cliente actualizado correctamente",
-        variant: "success",
-      });
-
-      setIsEditModalOpen(false);
-      fetchClients();
-    } catch (error) {
-      let errorMessage = "Error desconocido al actualizar cliente";
-      if (error.response?.data?.error) {
-        errorMessage = error.response.data.error;
-      } else if (error.message) {
-        errorMessage = error.message;
+  const handleConfirmToggle = async () => {
+    if (clientToToggle) {
+      const result = await toggleClient(clientToToggle.id);
+      if (result.success) {
+        setToast({
+          show: true,
+          title: "Éxito",
+          message: result.message,
+          variant: "success",
+        });
+        fetchClients();
+      } else {
+        setToast({
+          show: true,
+          title: "Error",
+          message: result.message,
+          variant: "danger",
+        });
       }
-
-      setToast({
-        show: true,
-        title: "Error",
-        message: errorMessage,
-        variant: "danger",
-      });
     }
+    setShowConfirmModal(false);
   };
 
   const columns = useMemo(
     () => [
-      { Header: "ID", accessor: "id" },
       { Header: "NOMBRE", accessor: "name" },
       { Header: "APELLIDO", accessor: "lastname" },
       { Header: "DOCUMENTO", accessor: "documentNumber" },
@@ -86,14 +89,24 @@ const ClientsPage = () => {
         Header: "ACCIONES",
         accessor: "actions",
         Cell: ({ row }) => (
-          <div>
-            <button
-              className="btn btn-primary btn-sm"
-              onClick={() => handleEdit(row.original.id)}
-              style={{ width: "40px", margin: "0 auto", borderRadius: "150px" }}
-            >
+          <div className="d-flex align-items-center gap-2">
+            <button className="btn btn-primary btn-sm" onClick={() => handleEdit(row.original.id)}>
               ✏️
             </button>
+
+            <div className="form-check form-switch">
+              <input
+                className="form-check-input"
+                type="checkbox"
+                role="switch"
+                checked={row.original.active}
+                onChange={() => handleShowConfirmModal(row.original)}
+                style={{
+                  backgroundColor: row.original.active ? "green" : "red",
+                  borderColor: row.original.active ? "green" : "red",
+                }}
+              />
+            </div>
           </div>
         ),
       },
@@ -111,12 +124,7 @@ const ClientsPage = () => {
         <DataTable columns={columns} data={clients} />
       </div>
 
-      <EditClientModal
-        isOpen={isEditModalOpen}
-        onClose={() => setIsEditModalOpen(false)}
-        data={selectedClient}
-        onSubmit={handleSave}
-      />
+      <EditClientModal isOpen={isEditModalOpen} onClose={() => setIsEditModalOpen(false)} data={selectedClient} />
 
       <ToastMessage
         show={toast.show}
@@ -125,6 +133,28 @@ const ClientsPage = () => {
         title={toast.title}
         variant={toast.variant}
       />
+
+      {/* Modal de Confirmación */}
+      <Modal show={showConfirmModal} onHide={() => setShowConfirmModal(false)} centered>
+        <Modal.Header closeButton>
+          <Modal.Title>Confirmar cambio de estado</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          {clientToToggle && (
+            <p>
+              ¿Estás seguro de que deseas {clientToToggle.active ? "anular" : "activar"} al cliente <b>{clientToToggle.name} {clientToToggle.lastname}</b>?
+            </p>
+          )}
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={() => setShowConfirmModal(false)}>
+            Cancelar
+          </Button>
+          <Button variant={clientToToggle?.active ? "danger" : "success"} onClick={handleConfirmToggle}>
+            {clientToToggle?.active ? "Anular" : "Activar"}
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </div>
   );
 };

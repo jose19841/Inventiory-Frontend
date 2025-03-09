@@ -6,7 +6,7 @@ import logo from "../assets/img/logo.png";
 import NavbarItem from "./NavbarItem";
 import NavbarDropdown from "./NavbarDropdown";
 import UserMenu from "./UserMenu";
-import { Users, UserPlus, List , Truck} from "lucide-react";
+import { Users, UserPlus, List , Truck, DollarSign } from "lucide-react";
 import '../styles/nav.css'
 const handleLogout = async () => {
   try {
@@ -37,12 +37,12 @@ const Navbar = () => {
           <ul className="navbar-nav me-auto ">
 
              {/* Expenses managenent */}
-             <NavbarDropdown text="Gastos" icon={Truck}>
+             <NavbarDropdown text="Gastos" icon={DollarSign}>
               <NavbarItem
                 url="/expenseRegister"
                 icon={Truck}
                 text="Registrar Gasto"
-              />
+              /> 
               <NavbarItem
                 url="/expenseList"
                 icon={List}
