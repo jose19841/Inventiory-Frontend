@@ -70,7 +70,11 @@ const ClientRegister = () => {
             {/* Segunda columna */}
             <div className="col-md-6">
               <label htmlFor="laxId" className="form-label">Cuit/Cuil</label>
+<<<<<<< HEAD
               <input type="text" name="laxId" id="laxId" value={formData.laxId} onChange={handleChange} required className="form-control" placeholder="Ej.: 987654" />
+=======
+              <input type="text" name="laxId" id="laxId" value={formData.laxId} onChange={handleChange}  className="form-control" placeholder="Ej.: 987654" />
+>>>>>>> e98b248 (Updated ChangePassword component with password visibility toggle)
 
               <label htmlFor="phone" className="form-label mt-3">Teléfono:</label>
               <input type="text" name="phone" id="phone" value={formData.phone} onChange={handleChange} required className="form-control" placeholder="Ej.: 011-1234567" />

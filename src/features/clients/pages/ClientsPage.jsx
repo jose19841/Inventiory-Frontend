@@ -74,6 +74,38 @@ const ClientsPage = () => {
     }
     setShowConfirmModal(false);
   };
+<<<<<<< HEAD
+=======
+  const handleSave = async (updatedClient) => {
+    try {
+      await updateClient(updatedClient);
+
+      setToast({
+        show: true,
+        title: "Éxito",
+        message: "Cliente actualizado correctamente",
+        variant: "success",
+      });
+
+      setIsEditModalOpen(false);
+      fetchClients();
+    } catch (error) {
+      let errorMessage = "Error desconocido al actualizar cliente";
+      if (error.response?.data?.error) {
+        errorMessage = error.response.data.error;
+      } else if (error.message) {
+        errorMessage = error.message;
+      }
+
+      setToast({
+        show: true,
+        title: "Error",
+        message: errorMessage,
+        variant: "danger",
+      });
+    }
+  };
+>>>>>>> e98b248 (Updated ChangePassword component with password visibility toggle)
 
   const columns = useMemo(
     () => [
@@ -85,6 +117,10 @@ const ClientsPage = () => {
       { Header: "TELÉFONO", accessor: "phone" },
       { Header: "DIRECCIÓN", accessor: "address" },
       { Header: "FECHA DE REGISTRO", accessor: "registrationDate" },
+<<<<<<< HEAD
+=======
+      { Header: "ESTADO", accessor: "active" , Cell: ({ value }) => (value ? "ACTIVO" : "INACTIVO")},
+>>>>>>> e98b248 (Updated ChangePassword component with password visibility toggle)
       {
         Header: "ACCIONES",
         accessor: "actions",
@@ -124,7 +160,11 @@ const ClientsPage = () => {
         <DataTable columns={columns} data={clients} />
       </div>
 
+<<<<<<< HEAD
       <EditClientModal isOpen={isEditModalOpen} onClose={() => setIsEditModalOpen(false)} data={selectedClient} />
+=======
+      <EditClientModal isOpen={isEditModalOpen} onClose={() => setIsEditModalOpen(false)} data={selectedClient}  onSubmit={handleSave} />
+>>>>>>> e98b248 (Updated ChangePassword component with password visibility toggle)
 
       <ToastMessage
         show={toast.show}

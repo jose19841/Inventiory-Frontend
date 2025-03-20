@@ -20,3 +20,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
     </AuthProvider>
   </React.StrictMode>
 );
+<<<<<<< HEAD
+=======
+
+>>>>>>> e98b248 (Updated ChangePassword component with password visibility toggle)

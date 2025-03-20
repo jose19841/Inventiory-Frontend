@@ -9,7 +9,11 @@ const useDeleteExpense = () => {
     setLoading(true);
     setError(null);
     try {
+<<<<<<< HEAD
       await apiClient.delete(`/expenses/${id}`); // ✅ Endpoint correcto
+=======
+      await apiClient.delete(`/expenses/${id}`); 
+>>>>>>> e98b248 (Updated ChangePassword component with password visibility toggle)
     } catch (err) {
       setError(err.response?.data?.error || "Error al eliminar el gasto");
       throw new Error(err.response?.data?.error || "Error al eliminar el gasto");

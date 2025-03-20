@@ -13,12 +13,25 @@ const UserMenu = ({ handleLogout }) => {
   return (
     <>
       <NavbarDropdown text="Usuario" icon={UserCircle}>
+<<<<<<< HEAD
         <NavbarItem url="/config" icon={Settings} text="Configuración" />
+=======
+        <hr />
+        <NavbarItem url="/config" icon={Settings} text="Configuración" />
+        <hr />
+        <NavbarItem url="/changePassword" icon={UserCircle} text="Cambiar Contraseña" />
+
+        <hr />
+>>>>>>> e98b248 (Updated ChangePassword component with password visibility toggle)
         <NavbarItem
           url="/downloadManual"
           icon={FileText}
           text="Descargar Manual"
         />
+<<<<<<< HEAD
+=======
+        <hr />
+>>>>>>> e98b248 (Updated ChangePassword component with password visibility toggle)
 
         {/* Botón para abrir el modal */}
         <li className="text-center">
@@ -30,6 +43,10 @@ const UserMenu = ({ handleLogout }) => {
             <LogOut className="me-2" size={18} /> Cerrar Sesión
           </button>
         </li>
+<<<<<<< HEAD
+=======
+        <hr />
+>>>>>>> e98b248 (Updated ChangePassword component with password visibility toggle)
       </NavbarDropdown>
 
       {/* Modal de Confirmación de Cierre de Sesión */}

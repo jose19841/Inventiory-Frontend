@@ -3,6 +3,10 @@ import useRegisterExpense from "../api/useRegisterExpense";
 import { LoadingScreen } from "../../../components/LoadingScreen";
 import { AlertTriangle, CheckCircle, DollarSign } from "lucide-react";
 import DatePicker from "react-datepicker";
+<<<<<<< HEAD
+=======
+import { es } from "date-fns/locale";
+>>>>>>> e98b248 (Updated ChangePassword component with password visibility toggle)
 import "react-datepicker/dist/react-datepicker.css";
 
 const ExpenseRegister = () => {
@@ -94,6 +98,7 @@ const ExpenseRegister = () => {
                 className="form-control"
                 placeholder="Ej.: 4500.75"
               />
+<<<<<<< HEAD
 
               <label htmlFor="expenseDate" className="form-label mt-3">
                 Fecha del Gasto:
@@ -104,6 +109,23 @@ const ExpenseRegister = () => {
                 dateFormat="dd/MM/yyyy"
                 className="form-control"
               />
+=======
+              <div className="w-100 ">
+                <label htmlFor="expenseDate" className="form-label mt-3">
+                  Fecha del Gasto:
+                </label>{" "}
+                <br />
+                <DatePicker
+                  selected={formData.expenseDate}
+                  onChange={handleDateChange}
+                  dateFormat="dd/MM/yyyy"
+                  className="form-control form-select"
+                  wrapperClassName="w-100"
+                   locale={es}
+                  
+                />
+              </div>
+>>>>>>> e98b248 (Updated ChangePassword component with password visibility toggle)
             </div>
 
             {/* Segunda columna */}

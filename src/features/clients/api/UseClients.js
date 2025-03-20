@@ -20,10 +20,14 @@ const useClients = () => {
     }
   };
 
+<<<<<<< HEAD
   // Llamamos a fetchClients cuando el componente se monta
   useEffect(() => {
     fetchClients();
   }, []);
+=======
+
+>>>>>>> e98b248 (Updated ChangePassword component with password visibility toggle)
 
   return { clients, loading, error, fetchClients }; 
 };
